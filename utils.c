@@ -24,6 +24,7 @@ int msleep(long msec)
 // Generate uniform random interger between 0 to n
 int randint(int n)
 {
+    srand((unsigned)time(NULL));
     if ((n - 1) == RAND_MAX)
     {
         return rand();
