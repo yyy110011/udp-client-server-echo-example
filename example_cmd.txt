@@ -1,0 +1,16 @@
+// server command
+./server.out
+./server.out --echo 0/1
+
+// client command
+./client.out 127.0.0.1 8888 'test test 123' 10 jitter
+
+// build docker
+docker build -t <image_name> . --no-cache
+
+// Run and mount current path to /souce
+docker run -it -v $(pwd):/source <image_name>
+
+// Run in another terminal
+docker container ls
+docker exec -it <hex> bash
