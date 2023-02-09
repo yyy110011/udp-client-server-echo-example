@@ -146,8 +146,8 @@ int main(int argc, char *argv[])
 
     if (argc < 6)
     {
-        log_info("Usage: %s <server_ip> <port> <message> <max_retry> <retry_algorithm>", argv[0]);
-        log_info("       <retry_algorithm>: exponential, jitter, equal_jitter, decorrelated_jitter", argv[0]);
+        printf("Usage: %s <server_ip> <port> <message> <max_retry> <retry_algorithm>\n", argv[0]);
+        printf("retry_algorithm: exponential, jitter, equal_jitter, decorrelated_jitter\n", argv[0]);
         return 1;
     }
 
