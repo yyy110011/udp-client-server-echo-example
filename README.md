@@ -1,7 +1,7 @@
 
 # udp-client-server-echo-example
 Simple client-server echo example.
-[![C/C++ CI](https://github.com/yyy110011/udp-client-server-echo-example/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/yyy110011/udp-client-server-echo-example/actions/workflows/c-cpp.yml)
+[![C/C++ CI](https://github.com/yyy110011/udp-client-server-echo-example/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/yyy110011/udp-client-server-echo-example/actions/workflows/c-cpp.yml)
 ## Compile
  
 ```shell
