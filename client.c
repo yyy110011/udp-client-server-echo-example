@@ -14,7 +14,7 @@ int jitter_backoff(int current_waiting_time)
 int equal_jitter_backoff(int current_waiting_time)
 {
     int tmp = MIN(current_waiting_time * WAITING_TIME_MULTIPLIER, MAX_WAITING_INTERVAL * 1000);
-    return tmp / 2 + randint(tmp);
+    return MIN(tmp / 2 + randint(tmp / 2), MAX_WAITING_INTERVAL * 1000);
 }
 
 int decorrelated_jitter_backoff(int current_waiting_time)
