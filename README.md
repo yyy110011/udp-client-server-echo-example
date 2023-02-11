@@ -31,7 +31,7 @@ root@debian:/> ./client.out <server_ip> <port> <message> <max_retry> <retry_algo
 ```
 
 ## Test
-Suppose you want to test the retry algorithm. You should run the client program only or set --echo 0 in the server program.
+Suppose you want to test the retry algorithm. You should run the client program only or set --echo 0 in the server program(Recommended to ensure the server received the message from the client).
 ```shell
 root@debian:/> ./server.out --echo 0
 ```
