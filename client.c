@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
     if (ret)
         log_info("Reach max-retry, return %d", ret);
     else
-        log_info("The echo message is received, return %d");
+        log_info("The echo message is received, return %d", ret);
 
     return ret;
 }
