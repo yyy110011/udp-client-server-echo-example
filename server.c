@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     else
     {
         log_error("Error: Invalid usage.");
-        log_info("Usage: %s --Echo 0/1", argv[0]);
+        log_info("Usage: %s --echo 0/1", argv[0]);
         return 1;
     }
 

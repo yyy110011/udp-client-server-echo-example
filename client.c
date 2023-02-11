@@ -40,7 +40,7 @@ void *receiver(void *arg)
             pthread_mutex_unlock(&args->mutex);
 
             log_info("Received '%s' from server %s", buffer, inet_ntoa(client_address.sin_addr));
-            log_info("Receiver early return %d", args->is_end);
+            log_info("Receiver early return.");
             return 0;
         }
         buffer[len] = '\0';
@@ -174,10 +174,9 @@ int main(int argc, char *argv[])
     close(sock);
     
     if (ret)
-        log_info("Reach max-retry,");
+        log_info("Reach max-retry, return %d", ret);
     else
-        log_info("The echo message is received,");
-    log_info(" return %d ", ret);
+        log_info("The echo message is received, return %d");
 
     return ret;
 }
