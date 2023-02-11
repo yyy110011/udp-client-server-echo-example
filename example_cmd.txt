@@ -3,7 +3,10 @@
 ./server.out --echo 0/1
 
 // client command
+./client.out 127.0.0.1 8888 'test test 123' 10 exponential
 ./client.out 127.0.0.1 8888 'test test 123' 10 jitter
+./client.out 127.0.0.1 8888 'test test 123' 10 equal_jitter
+./client.out 127.0.0.1 8888 'test test 123' 10 decorrelated_jitter
 
 // build docker
 docker build -t <image_name> . --no-cache
