@@ -131,8 +131,8 @@ sender_args init_sender_args(shared_args *rec_args, char **argv)
     }
     else
     {
-        strcpy(algo, "jitter");
-        args.alg = jitter_backoff;
+        strcpy(algo, "exponential");
+        args.alg = exponential_backoff;
     }
     log_info("Algorithm: %s", algo);
     return args;
