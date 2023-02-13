@@ -15,6 +15,17 @@ root@debian:/> make all
 ```
 ## Usage
 * It should run in two terminals. (one for the server and one for the client).
+#### Run in two terminals
+```shell
+# For the first one
+root@your-pc:/>docker run -it -v $(pwd):/source <image_name>
+
+# For the second one
+# Use "docker container ls" to get the CONTAINER ID
+root@your-pc:/>docker container ls 
+root@your-pc:/>docker exec -it <CONTAINER_ID> bash
+```
+
 #### Server
 ```shell
 root@debian:/> ./server.out
