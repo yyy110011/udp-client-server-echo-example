@@ -19,6 +19,7 @@
 #define MAX_WAITING_INTERVAL 8
 #define BASE_WAITING_TIME_MS 500
 #define MIN(a,b) ((a<b)?a:b)
+#define MAX(a,b) ((a>b)?a:b)
 #define RECEIVER_TIMEOUT 5
 
 typedef struct {
