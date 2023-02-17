@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
 {
     // create a UDP socket, return -1 on failure
     int sock;
-    int *ret;
+    bool *ret;
 
     if (argc < 6)
     {
@@ -177,5 +177,5 @@ int main(int argc, char *argv[])
     else
         log_info("The echo message is received, return %d", ret);
 
-    return ret;
+    return ret? 1: 0;
 }
