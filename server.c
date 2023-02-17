@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
         log_info("Listen to the port 8888...");
 
         // Receive.
-        int len = recvfrom(s, buffer, BUFFER_LEN, 0, (struct sockaddr *) &clien_address, &slen);
+        int len = recvfrom(s, buffer, BUFFER_LEN, 0, (struct sockaddr *) &clien_address, (socklen_t *)&slen);
         if (len == -1)
         {
             perror("recvfrom()");

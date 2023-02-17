@@ -22,7 +22,7 @@ int decorrelated_jitter_backoff(int current_waiting_time)
     return MIN(randint((current_waiting_time * 3 - BASE_WAITING_TIME_MS + 1) + BASE_WAITING_TIME_MS), MAX_WAITING_INTERVAL * 1000);
 }
 
-bool *receiver(void *arg)
+void *receiver(void *arg)
 {
     shared_args *args = (shared_args *)arg;
     char buffer[BUFFER_LEN] = {0};
@@ -31,7 +31,7 @@ bool *receiver(void *arg)
 
     while (!args->is_end)
     {
-        int len = recvfrom(args->sock, buffer, sizeof(buffer), 0, (struct sockaddr *)&client_address, &client_address_len);
+        int len = recvfrom(args->sock, buffer, sizeof(buffer), 0, (struct sockaddr *)&client_address, (socklen_t *)&client_address_len);
         if (len > 0)
         {
             // Received the echo from server, set status to end
@@ -41,13 +41,13 @@ bool *receiver(void *arg)
 
             log_info("Received '%s' from server %s", buffer, inet_ntoa(client_address.sin_addr));
             log_info("Receiver early return.");
-            return false;
+            return (void *)false;
         }
         buffer[len] = '\0';
         log_info("Receiver timeout and receive nothing from server yet, len = %d", len);
     }
     log_info("Receiver finished.");
-    return true;
+    return (void *)true;
 }
 
 void *sender(void *arg)
@@ -73,7 +73,7 @@ void *sender(void *arg)
         int len = sendto(args->args->sock, buffer, strlen(buffer), 0, (struct sockaddr *)&server_address, sizeof(server_address));
         log_info("Sent %d bytes: %s, try_times: %d", len, buffer, try_times);
         log_info("Waiting_time is %d ms, start to wait\n", waiting_time);
-        
+
         msleep(waiting_time);
         waiting_time = args->alg(waiting_time);
     }
@@ -141,12 +141,12 @@ int main(int argc, char *argv[])
 {
     // create a UDP socket, return -1 on failure
     int sock;
-    bool *ret;
+    void *ret;
 
     if (argc < 6)
     {
         printf("Usage: %s <server_ip> <port> <message> <max_retry> <retry_algorithm>\n", argv[0]);
-        printf("retry_algorithm: exponential, jitter, equal_jitter, decorrelated_jitter\n", argv[0]);
+        printf("retry_algorithm: exponential, jitter, equal_jitter, decorrelated_jitter\n");
         return 1;
     }
 
