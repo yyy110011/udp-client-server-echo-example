@@ -8,7 +8,7 @@ int exponential_backoff(int current_waiting_time)
 
 int jitter_backoff(int current_waiting_time)
 {
-    return randint(MIN(current_waiting_time * WAITING_TIME_MULTIPLIER, MAX_WAITING_INTERVAL * 1000));
+    return randint(MIN(current_waiting_time * WAITING_TIME_MULTIPLIER, MAX_WAITING_INTERVAL * 1000) - BASE_WAITING_TIME_MS + 1) + BASE_WAITING_TIME_MS;
 }
 
 int equal_jitter_backoff(int current_waiting_time)
@@ -19,7 +19,7 @@ int equal_jitter_backoff(int current_waiting_time)
 
 int decorrelated_jitter_backoff(int current_waiting_time)
 {
-    return MIN(randint((current_waiting_time * 3 - BASE_WAITING_TIME_MS + 1) + BASE_WAITING_TIME_MS), MAX_WAITING_INTERVAL * 1000);
+    return MIN(randint(current_waiting_time * 3 - BASE_WAITING_TIME_MS + 1) + BASE_WAITING_TIME_MS, MAX_WAITING_INTERVAL * 1000);
 }
 
 void *receiver(void *arg)
