@@ -22,7 +22,7 @@ int decorrelated_jitter_backoff(int current_waiting_time)
     return MIN(randint((current_waiting_time * 3 - BASE_WAITING_TIME_MS + 1) + BASE_WAITING_TIME_MS), MAX_WAITING_INTERVAL * 1000);
 }
 
-void *receiver(void *arg)
+bool *receiver(void *arg)
 {
     shared_args *args = (shared_args *)arg;
     char buffer[BUFFER_LEN] = {0};
@@ -41,13 +41,13 @@ void *receiver(void *arg)
 
             log_info("Received '%s' from server %s", buffer, inet_ntoa(client_address.sin_addr));
             log_info("Receiver early return.");
-            return 0;
+            return false;
         }
         buffer[len] = '\0';
         log_info("Receiver timeout and receive nothing from server yet, len = %d", len);
     }
     log_info("Receiver finished.");
-    return (void *)1;
+    return true;
 }
 
 void *sender(void *arg)
@@ -68,7 +68,7 @@ void *sender(void *arg)
     int waiting_time = args->base_waiting_time_ms;
     while(try_times++ < args->max_retry)
     {
-        if (args->args->is_end) return (void *)0;
+        if (args->args->is_end) return NULL;
          
         int len = sendto(args->args->sock, buffer, strlen(buffer), 0, (struct sockaddr *)&server_address, sizeof(server_address));
         log_info("Sent %d bytes: %s, try_times: %d", len, buffer, try_times);
@@ -83,8 +83,7 @@ void *sender(void *arg)
     pthread_mutex_lock(&args->args->mutex);
     args->args->is_end = true;
     pthread_mutex_unlock(&args->args->mutex);
-
-    return (void *)1;
+    return NULL;
 }
 
 shared_args init_shared_args(int sock, bool is_end)
